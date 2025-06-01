@@ -1,17 +1,102 @@
 [
   {
     "question": "Quel est le plus grand océan du monde ?",
-    "choices": ["Atlantique", "Indien", "Arctique", "Pacifique"],
+    "choices": [
+      "Atlantique",
+      "Indien",
+      "Arctique",
+      "Pacifique"
+    ],
     "answer": "Pacifique"
   },
   {
     "question": "Qui a peint La Joconde ?",
-    "choices": ["Michel-Ange", "Raphaël", "Léonard de Vinci", "Picasso"],
+    "choices": [
+      "Michel-Ange",
+      "Raphaël",
+      "Léonard de Vinci",
+      "Picasso"
+    ],
     "answer": "Léonard de Vinci"
   },
   {
     "question": "Combien de planètes dans le système solaire ?",
-    "choices": ["7", "8", "9", "10"],
+    "choices": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
     "answer": "8"
+  },
+  {
+    "question": "Quelle est la capitale de la France ?",
+    "choices": [
+      "Londres",
+      "Berlin",
+      "Madrid",
+      "Paris"
+    ],
+    "answer": "Paris"
+  },
+  {
+    "question": "Quel est l'élément chimique dont le symbole est O ?",
+    "choices": [
+      "Or",
+      "Oxygène",
+      "Hydrogène",
+      "Azote"
+    ],
+    "answer": "Oxygène"
+  },
+  {
+    "question": "Qui a écrit 'Les Misérables' ?",
+    "choices": [
+      "Victor Hugo",
+      "Émile Zola",
+      "Gustave Flaubert",
+      "Marcel Proust"
+    ],
+    "answer": "Victor Hugo"
+  },
+  {
+    "question": "Quel est le plus grand désert du monde ?",
+    "choices": [
+      "Sahara",
+      "Gobi",
+      "Kalahari",
+      "Antarctique"
+    ],
+    "answer": "Antarctique"
+  },
+  {
+    "question": "Quelle est la langue la plus parlée au monde ?",
+    "choices": [
+      "Anglais",
+      "Chinois",
+      "Espagnol",
+      "Hindi"
+    ],
+    "answer": "Chinois"
+  },
+  {
+    "question": "Quel est le plus haut sommet du monde ?",
+    "choices": [
+      "K2",
+      "Mont Blanc",
+      "Mont Everest",
+      "Mont Kilimandjaro"
+    ],
+    "answer": "Mont Everest"
+  },
+  {
+    "question": "Qui a découvert la pénicilline ?",
+    "choices": [
+      "Louis Pasteur",
+      "Alexander Fleming",
+      "Marie Curie",
+      "Albert Einstein"
+    ],
+    "answer": "Alexander Fleming"
   }
 ]
