@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import questionsData from "../data/questions.json";
 
 export type Question = {
   question: string;
@@ -16,13 +15,31 @@ export function useQuizEngine(questionCount: number = 5) {
   const [quizFinished, setQuizFinished] = useState(false);
 
   useEffect(() => {
-    const shuffled = shuffleArray([...questionsData]).slice(0, questionCount);
-    const shuffledChoices = shuffled.map((q) => ({
-      ...q,
-      choices: shuffleArray([...q.choices]),
-    }));
-    setQuestions(shuffledChoices);
-  }, []);
+    async function fetchQuestions() {
+      try {
+        const response = await fetch(
+          `https://opentdb.com/api.php?amount=${questionCount}&type=multiple`,
+        );
+        const data = await response.json();
+        const formatted: Question[] = data.results.map((q: any) => {
+          const correct = decodeHtmlEntities(q.correct_answer);
+          const choices = shuffleArray([
+            ...q.incorrect_answers.map((c: string) => decodeHtmlEntities(c)),
+            correct,
+          ]);
+          return {
+            question: decodeHtmlEntities(q.question),
+            choices,
+            answer: correct,
+          };
+        });
+        setQuestions(formatted);
+      } catch (err) {
+        console.error("Failed to fetch questions", err);
+      }
+    }
+    fetchQuestions();
+  }, [questionCount]);
 
   const currentQuestion = questions[currentIndex];
 
@@ -69,4 +86,25 @@ export function useQuizEngine(questionCount: number = 5) {
 
 function shuffleArray<T>(array: T[]): T[] {
   return array.sort(() => Math.random() - 0.5);
+}
+
+function decodeHtmlEntities(text: string): string {
+  return text
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&eacute;/g, "é")
+    .replace(/&uuml;/g, "ü")
+    .replace(/&ouml;/g, "ö")
+    .replace(/&aacute;/g, "á")
+    .replace(/&oacute;/g, "ó")
+    .replace(/&deg;/g, "°")
+    .replace(/&hellip;/g, "…")
+    .replace(/&ldquo;/g, "“")
+    .replace(/&rdquo;/g, "”")
+    .replace(/&lsquo;/g, "‘")
+    .replace(/&rsquo;/g, "’")
+    .replace(/&ntilde;/g, "ñ");
 }
