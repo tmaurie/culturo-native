@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
 import { useXpManager } from "../logic/useXpManager";
 import * as Haptics from "expo-haptics";
+import Button from "../components/Button";
+import {buttonThemes} from "../utils/colors";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Result">;
 
@@ -19,26 +21,24 @@ export default function ResultScreen({ route, navigation }: Props) {
   }, []);
 
   const getMessage = () => {
-    if (score === 5) return "Parfait ! Tu es un·e génie 🧠";
-    if (score >= 3) return "Pas mal du tout ! Continue comme ça 💪";
-    if (score === 2) return "Un petit effort encore 🔍";
-    return "On a tous un mauvais jour 😅";
+    if (score === 5) return "Perfect ! You're a genius 🤓";
+    if (score >= 3) return "Good job! Keep it up! 👍";
+    if (score === 2) return "Not bad, but you can do better! 🤔";
+    return "You might want to study a bit more! 😅";
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Résultat</Text>
-      <Text style={styles.score}>Tu as eu {score} / 5</Text>
+    <View style={styles.container} >
+      <Text style={styles.title}>Quiz Results</Text>
+      <Text style={styles.score}>Your score: {score} / 5</Text>
       <Text style={styles.message}>{getMessage()}</Text>
 
       <Text style={styles.xp}>+{xpEarned} XP</Text>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate("Home")}
-      >
-        <Text style={styles.buttonText}>Retour à l’accueil</Text>
-      </TouchableOpacity>
+      <Button label="Back to home" onPress={() => navigation.navigate("Home")}
+        backgroundColor={buttonThemes.primary.bg}
+        textColor={buttonThemes.primary.text}
+        />
     </View>
   );
 }

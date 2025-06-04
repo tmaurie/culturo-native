@@ -50,7 +50,7 @@ export default function XpBar({ xp, xpPerLevel = 100 }: Props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Niveau {level}</Text>
+      <Text style={styles.label}>Level {level}</Text>
       <View style={styles.bar}>
         <Animated.View style={[styles.fill, { width: barWidth }]} />
       </View>

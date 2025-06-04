@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
 import { useQuizEngine } from "../logic/useQuizEngine";
 import QuestionCard from "../components/QuestionCard";
 import * as Haptics from "expo-haptics";
+import Button from "../components/Button";
+import {buttonThemes} from "../utils/colors";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Quiz">;
 
@@ -39,7 +41,7 @@ export default function QuizScreen({ navigation }: Props) {
   if (!currentQuestion) {
     return (
       <View style={styles.center}>
-        <Text>Chargement des questions...</Text>
+        <Text>Loading questions...</Text>
       </View>
     );
   }
@@ -52,7 +54,7 @@ export default function QuizScreen({ navigation }: Props) {
   return (
     <View style={styles.container}>
       <Text style={styles.progress}>
-        Question {currentIndex + 1} / {totalQuestions}
+        Question {currentIndex + 1} of {totalQuestions}
       </Text>
 
       <QuestionCard
@@ -64,9 +66,11 @@ export default function QuizScreen({ navigation }: Props) {
       />
 
       {answered && (
-        <TouchableOpacity style={styles.nextButton} onPress={next}>
-          <Text style={styles.nextText}>Suivant</Text>
-        </TouchableOpacity>
+        <Button label="Next Question" onPress={() => {
+          Haptics.impactAsync();
+          setSelectedChoice(null);
+          next();
+        }} backgroundColor={buttonThemes.primary.bg} textColor={buttonThemes.primary.text} style={styles.nextButton} />
       )}
     </View>
   );
@@ -99,18 +103,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
   },
-  correct: {
-    backgroundColor: "#b2f2bb",
-  },
-  incorrect: {
-    backgroundColor: "#ffa8a8",
-  },
   nextButton: {
-    marginTop: 24,
-    backgroundColor: "#4dabf7",
-    padding: 16,
-    borderRadius: 8,
     alignSelf: "center",
+    marginTop: 20,
   },
   nextText: {
     color: "#fff",
