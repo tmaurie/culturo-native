@@ -4,6 +4,8 @@ export type Question = {
   question: string;
   choices: string[];
   answer: string;
+  difficulty: string;
+  category: string;
 };
 
 export function useQuizEngine(questionCount: number = 5) {
@@ -18,7 +20,7 @@ export function useQuizEngine(questionCount: number = 5) {
     async function fetchQuestions() {
       try {
         const response = await fetch(
-          `https://opentdb.com/api.php?amount=${questionCount}&type=multiple`,
+          `https://opentdb.com/api.php?amount=${questionCount}`,
         );
         const data = await response.json();
         const formatted: Question[] = data.results.map((q: any) => {
@@ -31,6 +33,8 @@ export function useQuizEngine(questionCount: number = 5) {
             question: decodeHtmlEntities(q.question),
             choices,
             answer: correct,
+            difficulty: q.difficulty,
+            category: decodeHtmlEntities(q.category),
           };
         });
         setQuestions(formatted);
