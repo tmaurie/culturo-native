@@ -16,19 +16,15 @@ export default function XpBar({ xp, xpPerLevel = 100 }: Props) {
   const animatedWidth = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    // Lance des petites vibrations répétées pendant le remplissage
     let hapticInterval: NodeJS.Timeout;
 
     const animate = () => {
-      // Reset width
       animatedWidth.setValue(0);
 
-      // Start haptics
       hapticInterval = setInterval(() => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
       }, 80);
 
-      // Animate bar
       Animated.timing(animatedWidth, {
         toValue: percent,
         duration: 800,
@@ -79,7 +75,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     overflow: "hidden",
     borderWidth: 2,
-    borderColor: "#000",
+    borderColor: "#ccc",
   },
   fill: {
     height: "100%",

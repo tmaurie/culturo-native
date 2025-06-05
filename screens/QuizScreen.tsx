@@ -7,6 +7,7 @@ import QuestionCard from "../components/QuestionCard";
 import * as Haptics from "expo-haptics";
 import Button from "../components/Button";
 import { buttonThemes } from "../utils/colors";
+import {COLORS} from "../constants/colors";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Quiz">;
 
@@ -88,9 +89,12 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     justifyContent: "center",
+    backgroundColor : COLORS.background
   },
   progress: {
-    fontSize: 16,
+    color: COLORS.text,
+    fontFamily : "Fredoka-Bold",
+    fontSize: 18,
     marginBottom: 12,
     textAlign: "center",
   },

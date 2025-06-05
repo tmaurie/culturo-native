@@ -9,6 +9,9 @@ import Button from "../components/Button";
 import Badge from "../components/Badge";
 import { buttonThemes } from "../utils/colors";
 import { getStreak } from "../logic/useStreakManager";
+import StreakFlame from "../components/StreakFlame";
+import { FONTS } from "../constants/fonts";
+import { COLORS } from "../constants/colors";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -43,12 +46,9 @@ export default function HomeScreen({ navigation }: Props) {
         <Badge
           label={`Level ${level}`}
           backgroundColor={buttonThemes.primary.bg}
+          style={{ borderColor: "#4dabf7" }}
         />
-        <Badge
-          label={`${streak} day streak`}
-          backgroundColor={buttonThemes.warning.bg}
-          color={buttonThemes.warning.text}
-        />
+        <StreakFlame streak={streak} />
       </View>
 
       <XpBar xp={xp} />
@@ -69,18 +69,21 @@ export default function HomeScreen({ navigation }: Props) {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: COLORS.background,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     padding: 24,
   },
   title: {
-    fontSize: 32,
-    fontWeight: "bold",
-    marginBottom: 8,
+    fontFamily: FONTS.heading,
+    fontSize: 48,
+    color: COLORS.text,
   },
   subtitle: {
-    fontSize: 16,
+    fontFamily: "Fredoka-Bold",
+    color: COLORS.text,
+    fontSize: 24,
     textAlign: "center",
     marginBottom: 20,
   },
@@ -90,5 +93,6 @@ const styles = StyleSheet.create({
   },
   startButton: {
     marginTop: 10,
+    borderColor: "#4dabf7",
   },
 });

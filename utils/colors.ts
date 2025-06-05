@@ -1,5 +1,7 @@
+import { COLORS } from "../constants/colors";
+
 export const buttonThemes = {
-  primary: { bg: "#3a86ff", text: "#fff" },
+  primary: { bg: "#3a86ff", text: COLORS.text },
   success: { bg: "#06d6a0", text: "#000" },
   warning: { bg: "#ffbe0b", text: "#000" },
   danger: { bg: "#ef476f", text: "#fff" },
