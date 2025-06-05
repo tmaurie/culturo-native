@@ -1,11 +1,13 @@
-import React from "react";
-import { TouchableOpacity, Text, StyleSheet, ViewStyle } from "react-native";
+import React, { useState } from "react";
+import { Text, StyleSheet, ViewStyle, Pressable } from "react-native";
+import { COLORS } from "../constants/colors";
 
 type Props = {
   label: string;
   onPress: () => void;
   backgroundColor?: string;
   textColor?: string;
+  borderColor?: string;
   style?: ViewStyle;
 };
 
@@ -13,17 +15,27 @@ export default function Button({
   label,
   onPress,
   backgroundColor = "#ff006e",
-  textColor = "#fff",
+  textColor = COLORS.background,
+  borderColor,
   style,
 }: Props) {
+  const [isPressed, setIsPressed] = useState(false);
+
   return (
-    <TouchableOpacity
+    <Pressable
+      onPressIn={() => setIsPressed(true)}
+      onPressOut={() => setIsPressed(false)}
       onPress={onPress}
-      style={[styles.button, { backgroundColor }, style]}
-      activeOpacity={0.8}
+      style={[
+        styles.button,
+        { backgroundColor },
+        { borderColor: borderColor },
+        style,
+        isPressed ? { transform: [{ translateY: 4 }] } : {},
+      ]}
     >
       <Text style={[styles.text, { color: textColor }]}>{label}</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 
@@ -33,14 +45,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 50,
     borderWidth: 3,
-    borderColor: "#000",
     alignItems: "center",
     justifyContent: "center",
   },
   text: {
+    fontFamily: "Fredoka-SemiBold",
     textAlign: "center",
     fontSize: 16,
-    fontWeight: "bold",
-    textTransform: "uppercase",
   },
 });

@@ -5,15 +5,17 @@ type Props = {
   label: string;
   color?: string;
   backgroundColor?: string;
+  style?: object;
 };
 
 export default function Badge({
   label,
   color = "#fff",
   backgroundColor = "#4dabf7",
+  style,
 }: Props) {
   return (
-    <View style={[styles.badge, { backgroundColor }]}>
+    <View style={[styles.badge, { backgroundColor }, style]}>
       <Text style={[styles.text, { color }]}>{label}</Text>
     </View>
   );
@@ -25,14 +27,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 20,
     borderWidth: 2,
-    borderColor: "#000",
     marginRight: 8,
     marginBottom: 8,
     alignSelf: "flex-start",
   },
   text: {
-    fontSize: 14,
-    fontWeight: "bold",
+    fontFamily: "Fredoka-SemiBold",
+    fontSize: 16,
     textTransform: "capitalize",
   },
 });

@@ -4,6 +4,7 @@ import { Question } from "../logic/useQuizEngine";
 import Badge from "./Badge";
 import Button from "./Button";
 import { getBadgeColor } from "../utils/colors";
+import { COLORS } from "../constants/colors";
 
 type Props = {
   question: Question;
@@ -20,14 +21,19 @@ export default function QuestionCard({
   onSelect,
   selectedChoice,
 }: Props) {
-  const getColorForChoice = (choice: string): { bg: string; text: string } => {
-    if (!answered) return { bg: "#eee", text: "#000" };
+  const getColorForChoice = (
+    choice: string,
+  ): { bg: string; text: string; border?: string } => {
+    if (!answered)
+      return { bg: COLORS.background, text: COLORS.text, border: "#52656D" }; // gris
     const isCorrectAnswer = choice === question.answer;
     const isSelectedWrong = choice === selectedChoice && !isCorrectAnswer;
 
-    if (isCorrectAnswer) return { bg: "#06d6a0", text: "#000" }; // vert
-    if (isSelectedWrong) return { bg: "#ef476f", text: "#fff" }; // rouge
-    return { bg: "#ccc", text: "#666" }; // grisé
+    if (isCorrectAnswer)
+      return { bg: COLORS.background, text: "#79B933", border: "#79B933" }; // vert
+    if (isSelectedWrong)
+      return { bg: COLORS.background, text: "#EE5555", border: "#EE5555" }; // rouge
+    return { bg: COLORS.background, text: COLORS.text, border: "#52656D" }; // gris clair
   };
 
   return (
@@ -46,7 +52,7 @@ export default function QuestionCard({
       <Text style={styles.questionText}>{question.question}</Text>
 
       {question.choices.map((choice, index) => {
-        const { bg, text } = getColorForChoice(choice);
+        const { bg, text, border } = getColorForChoice(choice);
 
         return (
           <Button
@@ -55,6 +61,7 @@ export default function QuestionCard({
             onPress={() => onSelect(choice)}
             backgroundColor={bg}
             textColor={text}
+            borderColor={border}
             style={styles.choice}
           />
         );
@@ -71,8 +78,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   questionText: {
+    fontFamily: "Fredoka-SemiBold",
+    color: COLORS.text,
     fontSize: 20,
-    fontWeight: "bold",
     marginBottom: 16,
     textAlign: "center",
   },
@@ -81,5 +89,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 12,
     textAlign: "center",
+    borderRadius: 20,
   },
 });
