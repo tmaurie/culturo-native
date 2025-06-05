@@ -7,10 +7,11 @@ import QuizScreen from "./screens/QuizScreen";
 import ResultScreen from "./screens/ResultScreen";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
+import { ActivityIndicator, View } from "react-native";
 
 export type RootStackParamList = {
   Home: undefined;
-  Quiz: undefined;
+  Quiz: { quizId?: string };
   Result: { score: number };
 };
 
@@ -25,6 +26,14 @@ export default function App() {
     "Fredoka-Light": require("./assets/fonts/Fredoka-Light.ttf"),
     "Fredoka-SemiBold": require("./assets/fonts/Fredoka-SemiBold.ttf"),
   });
+
+  if (!fontsLoaded) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
 
   return (
     <NavigationContainer>

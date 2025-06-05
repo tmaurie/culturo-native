@@ -4,7 +4,7 @@ import { Question } from "../logic/useQuizEngine";
 import Badge from "./Badge";
 import Button from "./Button";
 import { getBadgeColor } from "../utils/colors";
-import {COLORS} from "../constants/colors";
+import { COLORS } from "../constants/colors";
 
 type Props = {
   question: Question;
@@ -21,13 +21,18 @@ export default function QuestionCard({
   onSelect,
   selectedChoice,
 }: Props) {
-  const getColorForChoice = (choice: string): { bg: string; text: string, border?: string } => {
-    if (!answered) return { bg: COLORS.background, text: COLORS.text, border: "#52656D" }; // gris
+  const getColorForChoice = (
+    choice: string,
+  ): { bg: string; text: string; border?: string } => {
+    if (!answered)
+      return { bg: COLORS.background, text: COLORS.text, border: "#52656D" }; // gris
     const isCorrectAnswer = choice === question.answer;
     const isSelectedWrong = choice === selectedChoice && !isCorrectAnswer;
 
-    if (isCorrectAnswer) return { bg: COLORS.background, text: "#79B933", border: "#79B933" }; // vert
-    if (isSelectedWrong) return { bg: COLORS.background, text: "#EE5555", border: "#EE5555" }; // rouge
+    if (isCorrectAnswer)
+      return { bg: COLORS.background, text: "#79B933", border: "#79B933" }; // vert
+    if (isSelectedWrong)
+      return { bg: COLORS.background, text: "#EE5555", border: "#EE5555" }; // rouge
     return { bg: COLORS.background, text: COLORS.text, border: "#52656D" }; // gris clair
   };
 
@@ -84,6 +89,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 12,
     textAlign: "center",
-    borderRadius : 20,
-  }
+    borderRadius: 20,
+  },
 });

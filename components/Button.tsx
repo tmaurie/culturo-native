@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  Text,
-  StyleSheet,
-  ViewStyle,
-  Pressable,
-} from "react-native";
+import { Text, StyleSheet, ViewStyle, Pressable } from "react-native";
 import { COLORS } from "../constants/colors";
 
 type Props = {
@@ -21,7 +16,7 @@ export default function Button({
   onPress,
   backgroundColor = "#ff006e",
   textColor = COLORS.background,
-    borderColor,
+  borderColor,
   style,
 }: Props) {
   const [isPressed, setIsPressed] = useState(false);
@@ -34,7 +29,7 @@ export default function Button({
       style={[
         styles.button,
         { backgroundColor },
-        { borderColor : borderColor},
+        { borderColor: borderColor },
         style,
         isPressed ? { transform: [{ translateY: 4 }] } : {},
       ]}

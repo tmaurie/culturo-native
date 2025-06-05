@@ -83,9 +83,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   xpText: {
+    fontFamily: "Fredoka-SemiBold",
     marginTop: 4,
-    fontSize: 12,
-    color: "#555",
+    fontSize: 14,
+    color: "#52656D",
     fontWeight: "600",
   },
 });

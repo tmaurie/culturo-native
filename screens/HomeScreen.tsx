@@ -57,7 +57,7 @@ export default function HomeScreen({ navigation }: Props) {
         label="Start Quiz"
         onPress={() => {
           Haptics.impactAsync();
-          navigation.navigate("Quiz");
+          navigation.navigate("Quiz", {});
         }}
         backgroundColor={buttonThemes.primary.bg}
         textColor={buttonThemes.primary.text}

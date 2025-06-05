@@ -8,17 +8,13 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../App";
 
 type QuizNode = {
   id: string;
   label: string;
   status: "locked" | "unlocked" | "completed";
   icon?: string;
-};
-
-type RootStackParamList = {
-  Quiz: { quizId: string };
-  // Add other routes here if needed
 };
 
 const quizPath: QuizNode[] = [

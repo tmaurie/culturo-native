@@ -1,5 +1,5 @@
 export const FONTS = {
-  regular: "Poppins-Regular",
-  bold: "Poppins-Bold",
+  regular: "Fredoka-Regular",
+  bold: "Fredoka-Bold",
   heading: "Modak-Regular",
 };
