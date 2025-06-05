@@ -1,37 +1,43 @@
-import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import dayjs from "dayjs";
 
 const STREAK_KEY = "culturo_streak";
-const LAST_DATE_KEY = "culturo_last_date";
 
-export function useStreakManager() {
-  const [streak, setStreak] = useState<number>(0);
+export const getStreak = async () => {
+  const data = await AsyncStorage.getItem(STREAK_KEY);
 
-  useEffect(() => {
-    (async () => {
-      const storedStreak = await AsyncStorage.getItem(STREAK_KEY);
-      const storedDate = await AsyncStorage.getItem(LAST_DATE_KEY);
+  if (!data) {
+    return { streak: 0, lastPlayed: null };
+  }
 
-      const today = new Date().toDateString();
-      const yesterday = new Date(Date.now() - 86400000).toDateString();
+  try {
+    return JSON.parse(data);
+  } catch (e) {
+    console.error("Erreur parsing streak :", e);
+    return { streak: 0, lastPlayed: null };
+  }
+};
 
-      if (storedDate === today) {
-        // déjà joué aujourd’hui, on ne fait rien
-        return;
-      } else if (storedDate === yesterday) {
-        // streak ++
-        const newStreak = (parseInt(storedStreak ?? "0") || 0) + 1;
-        setStreak(newStreak);
-        await AsyncStorage.setItem(STREAK_KEY, newStreak.toString());
-        await AsyncStorage.setItem(LAST_DATE_KEY, today);
-      } else {
-        // streak reset
-        setStreak(1);
-        await AsyncStorage.setItem(STREAK_KEY, "1");
-        await AsyncStorage.setItem(LAST_DATE_KEY, today);
-      }
-    })();
-  }, []);
+export const updateStreak = async () => {
+  const today = dayjs().startOf("day");
+  const { streak, lastPlayed } = await getStreak();
 
-  return { streak };
-}
+  const last = lastPlayed ? dayjs(lastPlayed) : null;
+
+  let newStreak = 1;
+
+  if (last) {
+    if (today.diff(last, "day") === 1) {
+      newStreak = streak + 1;
+    } else if (today.isSame(last, "day")) {
+      newStreak = streak; // déjà joué aujourd’hui
+    }
+  }
+
+  await AsyncStorage.setItem(
+    STREAK_KEY,
+    JSON.stringify({ streak: newStreak, lastPlayed: today.toISOString() }),
+  );
+
+  return newStreak;
+};

@@ -1,20 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
 import { useXpManager } from "../logic/useXpManager";
-import { useStreakManager } from "../logic/useStreakManager";
 import XpBar from "../components/XpBar";
 import * as Haptics from "expo-haptics";
 import Button from "../components/Button";
 import Badge from "../components/Badge";
 import { buttonThemes } from "../utils/colors";
+import { getStreak } from "../logic/useStreakManager";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
 export default function HomeScreen({ navigation }: Props) {
   const { xp } = useXpManager();
-  const { streak } = useStreakManager();
+  const [streak, setStreak] = useState<number>(0);
+  useEffect(() => {
+    const fetchStreak = async () => {
+      const result = await getStreak();
+      setStreak(result.streak ?? 0); // fallback safe
+    };
+
+    fetchStreak();
+  }, []);
 
   if (xp === undefined || streak === undefined) {
     return (

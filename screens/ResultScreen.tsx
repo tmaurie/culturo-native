@@ -6,6 +6,7 @@ import { useXpManager } from "../logic/useXpManager";
 import * as Haptics from "expo-haptics";
 import Button from "../components/Button";
 import { buttonThemes } from "../utils/colors";
+import { updateStreak } from "../logic/useStreakManager";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Result">;
 
@@ -23,6 +24,10 @@ export default function ResultScreen({ route, navigation }: Props) {
       setAdded(true);
     }
   }, [xp]);
+
+  useEffect(() => {
+    (async () => await updateStreak())();
+  }, []);
 
   const getMessage = () => {
     if (score === 5) return "Perfect ! You're a genius 🤓";
