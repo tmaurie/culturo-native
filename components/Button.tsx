@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text: {
+    textAlign: "center",
     fontSize: 16,
     fontWeight: "bold",
     textTransform: "uppercase",

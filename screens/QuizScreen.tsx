@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
@@ -6,7 +6,7 @@ import { useQuizEngine } from "../logic/useQuizEngine";
 import QuestionCard from "../components/QuestionCard";
 import * as Haptics from "expo-haptics";
 import Button from "../components/Button";
-import {buttonThemes} from "../utils/colors";
+import { buttonThemes } from "../utils/colors";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Quiz">;
 
@@ -24,6 +24,12 @@ export default function QuizScreen({ navigation }: Props) {
   } = useQuizEngine(5);
 
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (quizFinished) {
+      navigation.replace("Result", { score });
+    }
+  }, [quizFinished]);
 
   const handleAnswer = (choice: string) => {
     setSelectedChoice(choice);
@@ -46,11 +52,6 @@ export default function QuizScreen({ navigation }: Props) {
     );
   }
 
-  if (quizFinished) {
-    navigation.replace("Result", { score });
-    return null;
-  }
-
   return (
     <View style={styles.container}>
       <Text style={styles.progress}>
@@ -66,11 +67,17 @@ export default function QuizScreen({ navigation }: Props) {
       />
 
       {answered && (
-        <Button label="Next Question" onPress={() => {
-          Haptics.impactAsync();
-          setSelectedChoice(null);
-          next();
-        }} backgroundColor={buttonThemes.primary.bg} textColor={buttonThemes.primary.text} style={styles.nextButton} />
+        <Button
+          label="Next Question"
+          onPress={() => {
+            Haptics.impactAsync();
+            setSelectedChoice(null);
+            next();
+          }}
+          backgroundColor={buttonThemes.primary.bg}
+          textColor={buttonThemes.primary.text}
+          style={styles.nextButton}
+        />
       )}
     </View>
   );
