@@ -17,6 +17,7 @@ export default function QuizScreen({ navigation }: Props) {
     currentIndex,
     totalQuestions,
     score,
+    xpEarned,
     answered,
     isCorrect,
     quizFinished,
@@ -28,7 +29,7 @@ export default function QuizScreen({ navigation }: Props) {
 
   useEffect(() => {
     if (quizFinished) {
-      navigation.replace("Result", { score });
+      navigation.replace("Result", { score, xpEarned, totalQuestions });
     }
   }, [quizFinished]);
 

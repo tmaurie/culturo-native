@@ -7,12 +7,14 @@ import * as Haptics from "expo-haptics";
 import Button from "../components/Button";
 import { buttonThemes } from "../utils/colors";
 import { updateStreak } from "../logic/useStreakManager";
+import { PERFECT_BONUS } from "../constants/xp";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Result">;
 
 export default function ResultScreen({ route, navigation }: Props) {
-  const { score } = route.params;
-  const xpEarned = score * 10;
+  const { score, xpEarned, totalQuestions } = route.params;
+  const bonus = score === totalQuestions ? PERFECT_BONUS : 0;
+  const totalXp = xpEarned + bonus;
 
   const { xp, addXp } = useXpManager();
   const [added, setAdded] = useState(false);
@@ -20,7 +22,7 @@ export default function ResultScreen({ route, navigation }: Props) {
   useEffect(() => {
     if (xp !== undefined && !added) {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
-      addXp(xpEarned);
+      addXp(totalXp);
       setAdded(true);
     }
   }, [xp]);
@@ -39,10 +41,15 @@ export default function ResultScreen({ route, navigation }: Props) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Quiz Results</Text>
-      <Text style={styles.score}>Your score: {score} / 5</Text>
+      <Text style={styles.score}>
+        Your score: {score} / {totalQuestions}
+      </Text>
       <Text style={styles.message}>{getMessage()}</Text>
 
-      <Text style={styles.xp}>+{xpEarned} XP</Text>
+      <Text style={styles.xp}>+{totalXp} XP</Text>
+      {bonus > 0 && (
+        <Text style={styles.bonus}>Perfect series bonus! +{bonus} XP</Text>
+      )}
 
       <Button
         label="Back to home"
@@ -90,5 +97,10 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "600",
+  },
+  bonus: {
+    fontSize: 16,
+    color: "#ffbe0b",
+    marginBottom: 24,
   },
 });

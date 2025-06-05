@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { XP_PER_DIFFICULTY } from "../constants/xp";
 
 export type Question = {
   question: string;
@@ -12,6 +13,7 @@ export function useQuizEngine(questionCount: number = 5) {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
+  const [xpEarned, setXpEarned] = useState(0);
   const [answered, setAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [quizFinished, setQuizFinished] = useState(false);
@@ -53,7 +55,12 @@ export function useQuizEngine(questionCount: number = 5) {
     const correct = choice === currentQuestion.answer;
     setAnswered(true);
     setIsCorrect(correct);
-    if (correct) setScore((prev) => prev + 1);
+    if (correct) {
+      setScore((prev) => prev + 1);
+      const diff = currentQuestion.difficulty.toLowerCase();
+      const gained = XP_PER_DIFFICULTY[diff] ?? 10;
+      setXpEarned((prev) => prev + gained);
+    }
   };
 
   const next = () => {
@@ -79,6 +86,7 @@ export function useQuizEngine(questionCount: number = 5) {
     currentIndex,
     totalQuestions: questions.length,
     score,
+    xpEarned,
     answered,
     isCorrect,
     quizFinished,

@@ -12,7 +12,7 @@ import { ActivityIndicator, View } from "react-native";
 export type RootStackParamList = {
   Home: undefined;
   Quiz: { quizId?: string };
-  Result: { score: number };
+  Result: { score: number; xpEarned: number; totalQuestions: number };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
