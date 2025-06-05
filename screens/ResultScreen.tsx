@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
 import { useXpManager } from "../logic/useXpManager";
 import * as Haptics from "expo-haptics";
 import Button from "../components/Button";
-import {buttonThemes} from "../utils/colors";
+import { buttonThemes } from "../utils/colors";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Result">;
 
@@ -13,12 +13,16 @@ export default function ResultScreen({ route, navigation }: Props) {
   const { score } = route.params;
   const xpEarned = score * 10;
 
-  const { addXp } = useXpManager();
+  const { xp, addXp } = useXpManager();
+  const [added, setAdded] = useState(false);
 
   useEffect(() => {
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
-    addXp(xpEarned);
-  }, []);
+    if (xp !== undefined && !added) {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+      addXp(xpEarned);
+      setAdded(true);
+    }
+  }, [xp]);
 
   const getMessage = () => {
     if (score === 5) return "Perfect ! You're a genius 🤓";
@@ -28,17 +32,19 @@ export default function ResultScreen({ route, navigation }: Props) {
   };
 
   return (
-    <View style={styles.container} >
+    <View style={styles.container}>
       <Text style={styles.title}>Quiz Results</Text>
       <Text style={styles.score}>Your score: {score} / 5</Text>
       <Text style={styles.message}>{getMessage()}</Text>
 
       <Text style={styles.xp}>+{xpEarned} XP</Text>
 
-      <Button label="Back to home" onPress={() => navigation.navigate("Home")}
+      <Button
+        label="Back to home"
+        onPress={() => navigation.navigate("Home")}
         backgroundColor={buttonThemes.primary.bg}
         textColor={buttonThemes.primary.text}
-        />
+      />
     </View>
   );
 }
