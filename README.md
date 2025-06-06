@@ -36,3 +36,12 @@ This is equivalent to running `expo start`. From the Expo CLI you can launch the
 └── package.json  # Project metadata and npm scripts
 ```
 
+## XP & Leveling
+
+XP is gained by answering questions correctly. Each level requires more XP than
+the previous one:
+
+- Level 1: **100 XP**
+- Level 2: **150 XP**
+- Level 3: **200 XP**
+- ... and so on, with +50 XP required for each additional level.

@@ -27,9 +27,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 20,
     borderWidth: 2,
-    marginRight: 8,
     marginBottom: 8,
-    alignSelf: "flex-start",
   },
   text: {
     fontFamily: "Fredoka-SemiBold",

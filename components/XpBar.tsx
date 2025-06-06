@@ -2,16 +2,16 @@ import React, { useEffect, useRef } from "react";
 import { View, Text, StyleSheet, Animated } from "react-native";
 import * as Haptics from "expo-haptics";
 import { buttonThemes } from "../utils/colors";
+import { getLevelInfo } from "../constants/xp";
 
 type Props = {
   xp: number;
   xpPerLevel?: number;
 };
 
-export default function XpBar({ xp, xpPerLevel = 100 }: Props) {
-  Math.floor(xp / xpPerLevel);
-  const currentXp = xp % xpPerLevel;
-  const percent = (currentXp / xpPerLevel) * 100;
+export default function XpBar({ xp }: Props) {
+  const { currentXp, xpForNext } = getLevelInfo(xp);
+  const percent = (currentXp / xpForNext) * 100;
 
   const animatedWidth = useRef(new Animated.Value(0)).current;
 
@@ -51,7 +51,7 @@ export default function XpBar({ xp, xpPerLevel = 100 }: Props) {
         <Animated.View style={[styles.fill, { width: barWidth }]} />
       </View>
       <Text style={styles.xpText}>
-        {currentXp} / {xpPerLevel} XP
+        {currentXp} / {xpForNext} XP
       </Text>
     </View>
   );

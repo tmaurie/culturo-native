@@ -11,7 +11,7 @@ export default function StreakFlame({ streak }: Props) {
   if (!streak || streak <= 0) return null;
 
   return (
-    <View style={styles.container}>
+    <View>
       <Badge
         label={`🔥 ${streak} day streak`}
         backgroundColor="#FF6B00"
@@ -28,11 +28,7 @@ export default function StreakFlame({ streak }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
+
   emoji: {
     fontSize: 32,
   },

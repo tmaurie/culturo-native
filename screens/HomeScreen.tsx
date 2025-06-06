@@ -6,12 +6,12 @@ import { useXpManager } from "../logic/useXpManager";
 import XpBar from "../components/XpBar";
 import * as Haptics from "expo-haptics";
 import Button from "../components/Button";
-import Badge from "../components/Badge";
 import { buttonThemes } from "../utils/colors";
 import { getStreak } from "../logic/useStreakManager";
 import StreakFlame from "../components/StreakFlame";
 import { FONTS } from "../constants/fonts";
 import { COLORS } from "../constants/colors";
+import { getLevelInfo } from "../constants/xp";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -35,7 +35,7 @@ export default function HomeScreen({ navigation }: Props) {
     );
   }
 
-  const level = Math.floor(xp / 100);
+  const { level } = getLevelInfo(xp);
 
   return (
     <View style={styles.container}>
@@ -43,14 +43,10 @@ export default function HomeScreen({ navigation }: Props) {
       <Text style={styles.subtitle}>Test your knowledge with fun quizzes!</Text>
 
       <View style={styles.badges}>
-        <Badge
-          label={`Level ${level}`}
-          backgroundColor={buttonThemes.primary.bg}
-          style={{ borderColor: "#4dabf7" }}
-        />
+
         <StreakFlame streak={streak} />
       </View>
-
+        <Text style={styles.subtitle}>Your Level: {level}</Text>
       <XpBar xp={xp} />
 
       <Button
