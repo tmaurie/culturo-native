@@ -28,7 +28,6 @@ export default function StreakFlame({ streak }: Props) {
 }
 
 const styles = StyleSheet.create({
-
   emoji: {
     fontSize: 32,
   },
