@@ -22,7 +22,6 @@ export function useQuizEngine(questionCount: number = 5, category?: number) {
     async function fetchQuestions() {
       try {
         const API_URL = `https://opentdb.com/api.php?amount=${questionCount}`;
-        console.log(`Fetching questions from: ${API_URL}`);
         const response = await fetch(
             category
                 ? `${API_URL}&category=${category}`

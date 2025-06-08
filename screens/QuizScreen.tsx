@@ -28,7 +28,6 @@ export default function QuizScreen({ route, navigation }: Props) {
     next,
   } = useQuizEngine(5, categoryId);
 
-  console.log("QuizScreen props:", route.params);
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
 
   useEffect(() => {
