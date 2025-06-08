@@ -1,21 +1,21 @@
-import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
-import HomeScreen from "./screens/HomeScreen";
+import MainTabs from "./navigation/MainTabs";
+import ResultScreen, { MainTabsParamList } from "./screens/ResultScreen";
 import QuizScreen from "./screens/QuizScreen";
-import ResultScreen from "./screens/ResultScreen";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
+
 import { ActivityIndicator, View } from "react-native";
 
 export type RootStackParamList = {
-  Home: undefined;
-  Quiz: { quizId?: string };
+  MainTabs: { screen?: keyof MainTabsParamList };
+  Quiz: { categoryId?: number };
   Result: { score: number; xpEarned: number; totalQuestions: number };
 };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -37,16 +37,13 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <StatusBar style="inverted" />
+      <StatusBar hidden={true} />
 
-      <Stack.Navigator
-        initialRouteName="Home"
-        screenOptions={{ headerShown: false }}
-      >
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Quiz" component={QuizScreen} />
-        <Stack.Screen name="Result" component={ResultScreen} />
-      </Stack.Navigator>
+      <RootStack.Navigator screenOptions={{ headerShown: false }}>
+        <RootStack.Screen name="MainTabs" component={MainTabs} />
+        <RootStack.Screen name="Quiz" component={QuizScreen} />
+        <RootStack.Screen name="Result" component={ResultScreen} />
+      </RootStack.Navigator>
     </NavigationContainer>
   );
 }

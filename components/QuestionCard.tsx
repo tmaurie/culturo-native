@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { Question } from "../logic/useQuizEngine";
 import Badge from "./Badge";
 import Button from "./Button";
-import { getBadgeColor } from "../utils/colors";
+import {getBadgeColor} from "../utils/colors";
 import { COLORS } from "../constants/colors";
 
 type Props = {
@@ -30,7 +30,7 @@ export default function QuestionCard({
     const isSelectedWrong = choice === selectedChoice && !isCorrectAnswer;
 
     if (isCorrectAnswer)
-      return { bg: COLORS.background, text: "#79B933", border: "#79B933" }; // vert
+      return { bg: COLORS.background, text: COLORS.success, border: COLORS.success }; // vert
     if (isSelectedWrong)
       return { bg: COLORS.background, text: "#EE5555", border: "#EE5555" }; // rouge
     return { bg: COLORS.background, text: COLORS.text, border: "#52656D" }; // gris clair

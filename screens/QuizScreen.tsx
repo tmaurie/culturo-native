@@ -11,7 +11,10 @@ import { COLORS } from "../constants/colors";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Quiz">;
 
-export default function QuizScreen({ navigation }: Props) {
+
+export default function QuizScreen({ route, navigation }: Props) {
+  const {categoryId} = route.params
+
   const {
     currentQuestion,
     currentIndex,
@@ -23,8 +26,9 @@ export default function QuizScreen({ navigation }: Props) {
     quizFinished,
     answer,
     next,
-  } = useQuizEngine(5);
+  } = useQuizEngine(5, categoryId);
 
+  console.log("QuizScreen props:", route.params);
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
 
   useEffect(() => {
