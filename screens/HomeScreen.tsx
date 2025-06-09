@@ -13,7 +13,7 @@ import { FONTS } from "../constants/fonts";
 import { COLORS } from "../constants/colors";
 import { getLevelInfo } from "../constants/xp";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Home">;
+type Props = NativeStackScreenProps<RootStackParamList>;
 
 export default function HomeScreen({ navigation }: Props) {
   const { xp } = useXpManager();
@@ -39,33 +39,39 @@ export default function HomeScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Culturo</Text>
-      <Text style={styles.subtitle}>Test your knowledge with fun quizzes!</Text>
+      <View style={styles.content}>
+        <Text style={styles.title}>Culturo</Text>
+        <Text style={styles.subtitle}>
+          Test your knowledge with fun quizzes!
+        </Text>
 
-      <View style={styles.badges}>
-
-        <StreakFlame streak={streak} />
-      </View>
+        <View style={styles.badges}>
+          <StreakFlame streak={streak} />
+        </View>
         <Text style={styles.subtitle}>Your Level: {level}</Text>
-      <XpBar xp={xp} />
+        <XpBar xp={xp} />
 
-      <Button
-        label="Start Quiz"
-        onPress={() => {
-          Haptics.impactAsync();
-          navigation.navigate("Quiz", {});
-        }}
-        backgroundColor={buttonThemes.primary.bg}
-        textColor={buttonThemes.primary.text}
-        style={styles.startButton}
-      />
+        <Button
+          label="Start Quiz"
+          onPress={() => {
+            Haptics.impactAsync();
+            navigation.navigate("Quiz", {});
+          }}
+          backgroundColor={buttonThemes.primary.bg}
+          textColor={buttonThemes.primary.text}
+          style={styles.startButton}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: COLORS.background,
+  },
+  content: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",

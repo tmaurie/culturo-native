@@ -9,7 +9,7 @@ export type Question = {
   category: string;
 };
 
-export function useQuizEngine(questionCount: number = 5) {
+export function useQuizEngine(questionCount: number = 5, category?: number) {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -21,8 +21,11 @@ export function useQuizEngine(questionCount: number = 5) {
   useEffect(() => {
     async function fetchQuestions() {
       try {
+        const API_URL = `https://opentdb.com/api.php?amount=${questionCount}`;
         const response = await fetch(
-          `https://opentdb.com/api.php?amount=${questionCount}`,
+            category
+                ? `${API_URL}&category=${category}`
+                : `${API_URL}`
         );
         const data = await response.json();
         const formatted: Question[] = data.results.map((q: any) => {

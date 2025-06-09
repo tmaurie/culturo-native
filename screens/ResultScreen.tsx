@@ -8,6 +8,15 @@ import Button from "../components/Button";
 import { buttonThemes } from "../utils/colors";
 import { updateStreak } from "../logic/useStreakManager";
 import { PERFECT_BONUS } from "../constants/xp";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+export type MainTabsParamList = {
+  Home: undefined;
+  Quiz: undefined;
+  Profile: undefined;
+};
+
+const Tab = createBottomTabNavigator<MainTabsParamList>();
 
 type Props = NativeStackScreenProps<RootStackParamList, "Result">;
 
@@ -53,7 +62,7 @@ export default function ResultScreen({ route, navigation }: Props) {
 
       <Button
         label="Back to home"
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.navigate("MainTabs", { screen: "Home" })}
         backgroundColor={buttonThemes.primary.bg}
         textColor={buttonThemes.primary.text}
       />
