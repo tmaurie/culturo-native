@@ -25,7 +25,7 @@ export default function QuestionCard({
     choice: string,
   ): { bg: string; text: string; border?: string } => {
     if (!answered)
-      return { bg: COLORS.background, text: COLORS.text, border: "#52656D" }; // gris
+      return { bg: COLORS.background, text: COLORS.text, border: COLORS.secondary }; // gris
     const isCorrectAnswer = choice === question.answer;
     const isSelectedWrong = choice === selectedChoice && !isCorrectAnswer;
 
@@ -33,7 +33,7 @@ export default function QuestionCard({
       return { bg: COLORS.background, text: COLORS.success, border: COLORS.success }; // vert
     if (isSelectedWrong)
       return { bg: COLORS.background, text: "#EE5555", border: "#EE5555" }; // rouge
-    return { bg: COLORS.background, text: COLORS.text, border: "#52656D" }; // gris clair
+    return { bg: COLORS.background, text: COLORS.text, border: COLORS.secondary }; // gris clair
   };
 
   return (

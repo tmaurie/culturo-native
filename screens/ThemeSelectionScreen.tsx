@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { CATEGORIES } from '../logic/categories';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
 import {COLORS} from "../constants/colors";
-import {FontAwesome6} from "@expo/vector-icons";
+import ThemeCard from '../components/ThemeCard';
 
 export default function ThemeSelectionScreen() {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -16,20 +16,12 @@ export default function ThemeSelectionScreen() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Choisis ton thème 🧠</Text>
+            <Text style={styles.title}>Choose a Theme</Text>
             <FlatList
-                data={CATEGORIES}
+                data={CATEGORIES.sort((a, b) => a.name > b.name ? 1 : -1)}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
-                    <TouchableOpacity
-                        style={styles.card}
-                        onPress={() => {
-                            handleThemeSelect(item.id);
-                         }}
-                    >
-                        <Text style={styles.cardText}>{item.name}</Text>
-                        <FontAwesome6 name={item.fontAwesomeIcon} size={24} color={COLORS.primary} />
-                    </TouchableOpacity>
+                    <ThemeCard item={item} onPress={() => handleThemeSelect(item.id)} />
                 )}
             />
         </View>
@@ -47,6 +39,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 16,
+        marginTop: 64,
         textAlign: 'center',
     },
     card: {
