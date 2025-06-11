@@ -1,47 +1,54 @@
-# Culturo Native
+# 🎮 Culturo - Fun General Knowledge App
 
-A small React Native app built with Expo. It features a quiz game with XP, streak management and simple navigation.
+**Culturo** is a mobile app for practicing general knowledge, inspired by Duolingo — built with React Native and Expo.
 
-## Installation
+The concept: encourage users to practice general knowledge daily, through playful quizzes and an engaging progression system (XP, streaks, levels).
 
-1. Ensure you have **Node.js** and **npm** installed. The project was built using Node 18+, but any recent LTS version should work.
-2. Install dependencies:
+---
+
+## 🚀 Main Features
+
+- 🧠 Dynamic quizzes via [Open Trivia DB](https://opentdb.com/api_config.php)
+- 🏆 XP rewards based on question difficulty
+- 🔥 Daily streak to encourage consistency
+- 📈 Progressive leveling system (XP requirements grow per level)
+- 🎁 Bonus XP for perfect quiz streaks
+- 🎲 Theme selection screen before each quiz
+- 💻 Scalable architecture — ready for future authentication (Supabase Magic Link) and cloud sync
+
+---
+
+## 📱 Tech Stack
+
+- [React Native](https://reactnative.dev/) (Expo)
+- [React Navigation](https://reactnavigation.org/)
+- [Open Trivia DB API](https://opentdb.com/api_config.php)
+- [AsyncStorage](https://react-native-async-storage.github.io/async-storage/) for local persistence
+- [Reanimated](https://docs.swmansion.com/react-native-reanimated/) for animations
+- [Supabase](https://supabase.io/) (planned for v2 - auth + cloud sync)
+
+---
+
+## 🗺️ Roadmap
+
+- [x] On-the-fly quiz with XP per question
+- [x] Bonus for perfect quiz streak
+- [x] Daily streak with visual feedback
+- [x] Leveling system with progressive XP
+- [x] Theme selection screen
+- [ ] Profile screen with user stats
+- [ ] Authentication via Magic Link (Supabase)
+- [ ] Cloud sync of progress
+- [ ] Leaderboard
+- [ ] Themed learning path (Duolingo style)
+- [ ] Enhanced animations (XP bar, level up, mascot)
+
+---
+
+## 💻 Installation (local dev)
 
 ```bash
+git clone https://github.com/your-username/culturo.git
+cd culturo
 npm install
-```
-
-## Running the application
-
-To start the Expo development server:
-
-```bash
-npm run start
-```
-
-This is equivalent to running `expo start`. From the Expo CLI you can launch the app on an Android or iOS simulator, a physical device using the Expo Go app, or in the web browser.
-
-## Project structure
-
-```
-.
-├── assets/       # Application icons and other static assets
-├── components/   # Reusable React Native components
-├── data/         # Static JSON data used by the quiz
-├── logic/        # Custom hooks handling quiz state, XP and streak
-├── screens/      # Navigation screens (Home, Quiz, Result)
-├── App.tsx       # App component and navigation setup
-├── index.ts      # Entry point used by Expo
-├── app.json      # Expo configuration
-└── package.json  # Project metadata and npm scripts
-```
-
-## XP & Leveling
-
-XP is gained by answering questions correctly. Each level requires more XP than
-the previous one:
-
-- Level 1: **100 XP**
-- Level 2: **150 XP**
-- Level 3: **200 XP**
-- ... and so on, with +50 XP required for each additional level.
+expo start
