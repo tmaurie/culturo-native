@@ -12,6 +12,7 @@ import StreakFlame from "../components/StreakFlame";
 import { FONTS } from "../constants/fonts";
 import { COLORS } from "../constants/colors";
 import { getLevelInfo } from "../constants/xp";
+import Header from "../components/Header";
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
@@ -39,6 +40,7 @@ export default function HomeScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
+      <Header title="Home" />
       <View style={styles.content}>
         <Text style={styles.title}>Culturo</Text>
         <Text style={styles.subtitle}>
