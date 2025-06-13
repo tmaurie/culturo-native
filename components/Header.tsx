@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import {COLORS} from "../constants/colors";
 
 type Props = {
     title: string;
@@ -38,11 +39,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingHorizontal: 16,
-        paddingTop: 20,
-        paddingBottom: 12,
-        backgroundColor: '#222831',
+        paddingTop: 70,
+        paddingBottom: 20,
+        backgroundColor: COLORS.background,
         borderBottomWidth: 3,
-        borderBottomColor: '#FFD93D',
+        borderBottomColor: COLORS.secondary,
     },
     iconButton: {
         width: 32,
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title: {
-        color: '#FFD93D',
+        color: COLORS.text,
         fontSize: 20,
         fontWeight: 'bold',
         textTransform: 'uppercase',
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
         marginTop: 4,
         width: 40,
         height: 4,
-        backgroundColor: '#00ADB5',
+        backgroundColor: COLORS.primary,
         borderRadius: 2,
     },
 });
