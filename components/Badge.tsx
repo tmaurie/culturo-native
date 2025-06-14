@@ -35,6 +35,7 @@ export default function Badge({
 const styles = StyleSheet.create({
   badge: {
     flexDirection: "row",
+    alignItems: "center",
     paddingVertical: 4,
     paddingHorizontal: 12,
     borderRadius: 20,
