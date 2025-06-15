@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import * as Animatable from "react-native-animatable";
 import Badge from "./Badge";
 
@@ -13,7 +13,8 @@ export default function StreakFlame({ streak }: Props) {
   return (
     <View>
       <Badge
-        label={`🔥 ${streak} day streak`}
+        label={`${streak} day streak`}
+        icon="fire"
         backgroundColor="#FF6B00"
         style={{ borderColor: "#ff8837" }}
       />
