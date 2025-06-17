@@ -14,7 +14,6 @@ export type RootStackParamList = {
   Result: { score: number; xpEarned: number; totalQuestions: number };
 };
 
-
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {

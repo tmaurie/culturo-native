@@ -23,9 +23,7 @@ export function useQuizEngine(questionCount: number = 5, category?: number) {
       try {
         const API_URL = `https://opentdb.com/api.php?amount=${questionCount}`;
         const response = await fetch(
-            category
-                ? `${API_URL}&category=${category}`
-                : `${API_URL}`
+          category ? `${API_URL}&category=${category}` : `${API_URL}`,
         );
         const data = await response.json();
         const formatted: Question[] = data.results.map((q: any) => {

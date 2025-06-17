@@ -11,9 +11,8 @@ import { COLORS } from "../constants/colors";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Quiz">;
 
-
 export default function QuizScreen({ route, navigation }: Props) {
-  const {categoryId} = route.params
+  const { categoryId } = route.params;
 
   const {
     currentQuestion,
